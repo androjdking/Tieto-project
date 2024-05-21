@@ -12,7 +12,7 @@ public class MainScene implements IScene {
     @Override
     public void update(String line) {
         if (line.contains("4")) {
-            //todo
+            System.out.println("Credits");
         }
 
         if (line.contains("1")) {
