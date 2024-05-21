@@ -1,4 +1,4 @@
-package org.example.scenes;
+package org.game.scenes;
 
 public interface IScene {
     int width = 12;

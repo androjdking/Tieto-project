@@ -1,6 +1,6 @@
-package org.example;
+package org.game;
 
-import org.example.scenes.SceneManager;
+import org.game.scenes.SceneManager;
 
 public class Main {
     public static void main(String[] args) {

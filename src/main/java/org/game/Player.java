@@ -1,21 +1,18 @@
-package org.example;
+package org.game;
 
 public class Player {
     // player coordinations
     private int xpos;
     private int ypos;
 
-    // jump mechanic
-    public int maxJump;
-    public boolean isJumping;
-
+    // player can be played
     public boolean alive;
+
+
     public Player(int startXPos, int startYPos) {
         xpos=startXPos;
         ypos=startYPos;
         alive = true;
-        maxJump = 3;
-        isJumping = false;
     }
     public int[] getPos() {
         return new int[]{xpos, ypos};
@@ -23,9 +20,5 @@ public class Player {
     public void setPos(int XPos, int YPos) {
         xpos=XPos;
         ypos=YPos;
-    }
-    public int jumping(){
-        isJumping=true;
-        return maxJump;
     }
 }

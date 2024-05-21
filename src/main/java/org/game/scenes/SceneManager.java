@@ -1,4 +1,4 @@
-package org.example.scenes;
+package org.game.scenes;
 
 
 import java.util.ArrayList;
@@ -23,7 +23,6 @@ public class SceneManager {
         sceneArray = new ArrayList<>();
         index = 0;
 
-
         // Adding scenes to array
         sceneArray.add(new MenuScene());
         sceneArray.add(new GameScreen());
@@ -35,6 +34,7 @@ public class SceneManager {
     }
 
     public void loop() {
+        //game pipeline
         String line = "";
         while (true) {
             getCurrentScene().update(line);
