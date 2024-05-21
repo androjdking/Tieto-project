@@ -17,8 +17,13 @@ public class Player {
     public int[] getPos() {
         return new int[]{xpos, ypos};
     }
+
     public void setPos(int XPos, int YPos) {
         xpos=XPos;
         ypos=YPos;
+    }
+
+    public void Death(){
+        alive=false;
     }
 }

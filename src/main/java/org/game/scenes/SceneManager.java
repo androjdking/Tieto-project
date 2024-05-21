@@ -26,6 +26,7 @@ public class SceneManager {
         // Adding scenes to array
         sceneArray.add(new MenuScene());
         sceneArray.add(new GameScreen());
+        sceneArray.add(new DeathScreen());
 
         // Initializing all scenes
         for (IScene scene : sceneArray) {
