@@ -35,6 +35,8 @@ public class MenuScene implements IScene {
     @Override
     public void render() {
         // printing menu
+        System.out.println("Space-Invaders");
+        System.out.println();
         System.out.println("Main Menu");
         System.out.println("[1] Play");
         System.out.println("[2] Show highscore");
