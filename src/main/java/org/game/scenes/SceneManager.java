@@ -1,6 +1,4 @@
 package org.game.scenes;
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
 

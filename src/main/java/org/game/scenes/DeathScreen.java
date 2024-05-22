@@ -1,4 +1,5 @@
 package org.game.scenes;
+import org.game.Player;
 
 public class DeathScreen implements IScene{
     SceneManager manager;
@@ -9,9 +10,7 @@ public class DeathScreen implements IScene{
 
     @Override
     public void update(String line) {
-
     }
-
 
     @Override
     public void render() {
@@ -22,6 +21,8 @@ public class DeathScreen implements IScene{
 
         //make message in center
         System.out.println("You are dead!");
+        System.out.println(" Game over");
+        System.out.println("Achived score: "+ Player.getScore());
         for(int i=0;i<(2)-1;i++){
             System.out.println();
         }
