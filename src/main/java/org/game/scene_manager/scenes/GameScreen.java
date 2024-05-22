@@ -25,7 +25,8 @@ public class GameScreen implements IScene {
 
     @Override
     public void update(String line) {
-        Player.instance.alive = true;
+        Player player = Player.instance;
+        player.alive = true;
         // spawn algorithm
         if (pauseForSpawn == 3) {
             pauseForSpawn = 0;
@@ -52,20 +53,20 @@ public class GameScreen implements IScene {
             }
         }
         pauseForSpawn++;
-        //changing position of player
+        //changing position of player;
         switch (line) {
             case "a":
-                if (!(Player.instance.getXpos() - 1 < 0) && Player.instance.alive) {
-                    Player.instance.setXpos(Player.instance.getXpos() - 1);
+                if (!(player.getXpos() - 1 < 0) && player.alive) {
+                    player.setXpos(player.getXpos() - 1);
                 }
                 break;
             case "d":
-                if (!(Player.instance.getXpos() + 1 > width - 1) && Player.instance.alive) {
-                    Player.instance.setXpos(Player.instance.getXpos() + 1);
+                if (!(player.getXpos() + 1 > width - 1) && player.alive) {
+                    player.setXpos(player.getXpos() + 1);
                 }
                 break;
             case "w":
-                Projectile projectile = new Projectile(Player.instance.getXpos(), Player.instance.getYpos());
+                Projectile projectile = new Projectile(player.getXpos(), player.getYpos());
                 projectiles.add(projectile);
                 break;
         }
@@ -85,7 +86,7 @@ public class GameScreen implements IScene {
         for (int i = 0; i < projectiles.size(); i++) {
             for (int j = 0; j < enemies.size(); j++) {
                 if (projectiles.get(i).getXpos() == enemies.get(j).getXpos() && projectiles.get(i).getYpos() == enemies.get(j).getYpos()) {
-                    Player.instance.addScore(enemies.get(j).getScore());
+                    player.addScore(enemies.get(j).getScore());
                     enemies.remove(j);
                     j++;
                     deleteProjectile=true;
@@ -102,22 +103,23 @@ public class GameScreen implements IScene {
 
         //checks for collision with player and kills them
         for (SpawnEnemy enemy : enemies) {
-            if (enemy.getXpos() == Player.instance.getXpos() && enemy.getYpos() == Player.instance.getYpos()) {
-                Player.instance.death();
+            if (enemy.getXpos() == player.getXpos() && enemy.getYpos() == player.getYpos()) {
+                player.death();
                 enemies.clear();
                 projectiles.clear();
-                Player.instance.setXpos(width / 2);
-                Player.instance.setYpos(height - 1);
+                player.setXpos(width / 2);
+                player.setYpos(height - 1);
                 manager.setCurrentScene(SceneEnum.DEATH);
                 break;
             }
         }
         //adds one point after every turn
-        Player.instance.addScore(1);
+        player.addScore(1);
     }
 
     @Override
     public void render() {
+        Player player = Player.instance;
         boolean charPresent = false;
         //console "clear"
         for (int i = 0; i < 10; i++) {
@@ -128,8 +130,8 @@ public class GameScreen implements IScene {
             System.out.print("|");
             for (int columns = 0; columns < width; columns++) {
                 //check if current position matches player's position
-                if (columns == Player.instance.getXpos() && rows == Player.instance.getYpos()) {
-                    System.out.print(Player.instance.getIcon());
+                if (columns == player.getXpos() && rows == player.getYpos()) {
+                    System.out.print(player.getIcon());
                     continue;
                 }
                 for (Projectile projectile : projectiles) {
