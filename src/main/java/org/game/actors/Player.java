@@ -10,7 +10,7 @@ public class Player {
 
     private int xpos;
     private int ypos;
-    public int score;
+    private int score;
     private char icon;
 
     // player can be played
@@ -24,12 +24,15 @@ public class Player {
         this.score = 0;
         this.icon = 'A';
     }
+    public int getScore(){
+        return this.score;
+    }
 
-    public void SetScore(int score){
+    public void setScore(int score){
         this.score = score;
     }
 
-    public void AddScore(int score) {
+    public void addScore(int score) {
         this.score += score;
     }
 
@@ -49,7 +52,7 @@ public class Player {
         return this.ypos;
     }
 
-    public void Death() {
+    public void death() {
         this.alive = false;
     }
 
