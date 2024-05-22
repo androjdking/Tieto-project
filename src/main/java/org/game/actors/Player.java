@@ -1,8 +1,13 @@
 package org.game.actors;
 
+import static org.game.scene_manager.IScene.height;
+import static org.game.scene_manager.IScene.width;
+
 public class Player {
 
     // player coordinations
+    public static Player instance = new Player(width/2,height-1);
+
     private int xpos;
     private int ypos;
     public int score;
@@ -18,6 +23,10 @@ public class Player {
         this.alive = true;
         this.score = 0;
         this.icon = 'A';
+    }
+
+    public void SetScore(int score){
+        this.score = score;
     }
 
     public void AddScore(int score) {

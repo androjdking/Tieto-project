@@ -3,6 +3,7 @@ package org.game.scene_manager.scenes;
 import org.game.scene_manager.IScene;
 import org.game.scene_manager.SceneEnum;
 import org.game.scene_manager.SceneManager;
+import org.game.actors.Player;
 
 public class DeathScreen implements IScene {
     SceneManager manager;
@@ -16,6 +17,7 @@ public class DeathScreen implements IScene {
     public void update(String line) {
         switch (line) {
             case "1":
+                Player.instance.score = 0;
                 manager.setCurrentScene(SceneEnum.GAME);
                 break;
             case "2":
@@ -36,6 +38,8 @@ public class DeathScreen implements IScene {
 
         //make message in center
         System.out.println("You are dead!");
+        System.out.println("Game over");
+        System.out.println("Your score: " + Player.instance.score);
         System.out.println();
         System.out.println("[1] Retry");
         System.out.println("[2] Show highscore");
