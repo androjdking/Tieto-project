@@ -42,7 +42,6 @@ public class Player {
 
     public void Death() {
         this.alive = false;
-        this.score = 0;
     }
 
     public char getIcon() {
