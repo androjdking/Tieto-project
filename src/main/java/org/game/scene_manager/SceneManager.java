@@ -1,5 +1,9 @@
-package org.game.scenes;
+package org.game.scene_manager;
 
+
+import org.game.scene_manager.scenes.DeathScreen;
+import org.game.scene_manager.scenes.GameScreen;
+import org.game.scene_manager.scenes.MenuScene;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -12,7 +16,8 @@ public class SceneManager {
         return sceneArray.get(index);
     }
 
-    public void setCurrentScene(int newIndex) {
+    public void setCurrentScene(SceneEnum scene) {
+        int newIndex = scene.ordinal();
         if (newIndex >= sceneArray.size())
             return;
 
@@ -24,9 +29,9 @@ public class SceneManager {
         index = 0;
 
         // Adding scenes to array
-        sceneArray.add(new MenuScene());
-        sceneArray.add(new GameScreen());
-        sceneArray.add(new DeathScreen());
+        sceneArray.add(SceneEnum.MENU.ordinal(), new MenuScene());
+        sceneArray.add(SceneEnum.GAME.ordinal(), new GameScreen());
+        sceneArray.add(SceneEnum.DEATH.ordinal(), new DeathScreen());
 
         // Initializing all scenes
         for (IScene scene : sceneArray) {

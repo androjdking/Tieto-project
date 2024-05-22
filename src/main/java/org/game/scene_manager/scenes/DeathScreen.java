@@ -1,6 +1,10 @@
-package org.game.scenes;
+package org.game.scene_manager.scenes;
 
-public class DeathScreen implements IScene{
+import org.game.scene_manager.IScene;
+import org.game.scene_manager.SceneEnum;
+import org.game.scene_manager.SceneManager;
+
+public class DeathScreen implements IScene {
     SceneManager manager;
     @Override
     public void init(SceneManager manager) {
@@ -9,7 +13,16 @@ public class DeathScreen implements IScene{
 
     @Override
     public void update(String line) {
-
+        switch(line){
+            case "1":
+                manager.setCurrentScene(SceneEnum.GAME);
+                break;
+            case "2":
+                manager.setCurrentScene(SceneEnum.HIGHSCORE);
+                break;
+            case "3":
+                System.exit(0);
+        }
     }
 
 

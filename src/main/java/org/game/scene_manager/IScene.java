@@ -1,4 +1,4 @@
-package org.game.scenes;
+package org.game.scene_manager;
 
 public interface IScene {
     int width = 12;
@@ -6,5 +6,4 @@ public interface IScene {
     void init(SceneManager manager);
     void update(String line);
     void render();
-
 }
