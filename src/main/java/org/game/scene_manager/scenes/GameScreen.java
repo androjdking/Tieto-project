@@ -53,6 +53,7 @@ public class GameScreen implements IScene {
             }
         }
         pauseForSpawn++;
+
         //changing position of player;
         switch (line) {
             case "a":
@@ -92,7 +93,7 @@ public class GameScreen implements IScene {
         for (int i = 0; i < projectiles.size(); i++) {
             for (int j = 0; j < enemies.size(); j++) {
                 if (projectiles.get(i).getXpos() == enemies.get(j).getXpos() && projectiles.get(i).getYpos() == enemies.get(j).getYpos()) {
-                    player.AddScore(enemies.get(j).getScore());
+                    player.addScore(enemies.get(j).getScore());
                     enemies.remove(j);
                     j++;
                     deleteProjectile=true;
@@ -110,7 +111,7 @@ public class GameScreen implements IScene {
         //checks for collision with player and kills them
         for (SpawnEnemy enemy : enemies) {
             if (enemy.getXpos() == player.getXpos() && enemy.getYpos() == player.getYpos()) {
-                player.Death();
+                player.death();
                 enemies.clear();
                 projectiles.clear();
                 player.setXpos(width / 2);
@@ -120,7 +121,7 @@ public class GameScreen implements IScene {
             }
         }
         //adds one point after every turn
-        player.AddScore(1);
+        player.addScore(1);
     }
 
     @Override

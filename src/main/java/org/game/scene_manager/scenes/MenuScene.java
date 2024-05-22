@@ -28,8 +28,9 @@ public class MenuScene implements IScene {
             case "4":
                 manager.setCurrentScene(SceneEnum.CREDITS);
                 break;
-            case "5":
+            case "5":{
                 System.exit(0);
+            }
         }
     }
 
@@ -63,6 +64,6 @@ public class MenuScene implements IScene {
         System.out.println("[3] Settings");
         System.out.println("[4] Credits");
         System.out.println("[5] Exit");
-        manager.setCurrentScene(SceneEnum.GAME);
+
     }
 }

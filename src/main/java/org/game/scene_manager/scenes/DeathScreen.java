@@ -16,7 +16,7 @@ public class DeathScreen implements IScene {
     public void update(String line) {
         switch(line){
             case "1":
-                Player.instance.score = 0;
+                Player.instance.setScore(0);
                 manager.setCurrentScene(SceneEnum.GAME);
                 break;
             case "2":
@@ -39,7 +39,7 @@ public class DeathScreen implements IScene {
         //make message in center
         System.out.println("You are dead!");
         System.out.println("Game over");
-        System.out.println("Your score: " + Player.instance.score);
+        System.out.println("Your score: " + Player.instance.getScore());
         for(int i=0;i<(2)-1;i++){
             System.out.println();
         }
