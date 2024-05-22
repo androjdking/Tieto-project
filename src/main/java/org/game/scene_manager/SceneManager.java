@@ -1,9 +1,7 @@
 package org.game.scene_manager;
 
 
-import org.game.scene_manager.scenes.DeathScreen;
-import org.game.scene_manager.scenes.GameScreen;
-import org.game.scene_manager.scenes.MenuScene;
+import org.game.scene_manager.scenes.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -30,6 +28,8 @@ public class SceneManager {
 
         // Adding scenes to array
         sceneArray.add(SceneEnum.MENU.ordinal(), new MenuScene());
+        //sceneArray.add(SceneEnum.SETTINGS.ordinal(), new SettingScene());
+        //sceneArray.add(SceneEnum.HIGHSCORE.ordinal(), new ScoreScene());
         sceneArray.add(SceneEnum.GAME.ordinal(), new GameScreen());
         sceneArray.add(SceneEnum.DEATH.ordinal(), new DeathScreen());
 

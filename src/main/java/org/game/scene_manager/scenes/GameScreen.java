@@ -65,6 +65,12 @@ public class GameScreen implements IScene {
                     player.setXpos(player.getXpos() + 1);
                 }
                 break;
+            case "e": {
+                enemies.clear();
+                projectiles.clear();
+                manager.setCurrentScene(SceneEnum.DEATH);
+                break;
+            }
             case "w":
                 Projectile projectile = new Projectile(player.getXpos(), player.getYpos());
                 projectiles.add(projectile);
@@ -86,7 +92,7 @@ public class GameScreen implements IScene {
         for (int i = 0; i < projectiles.size(); i++) {
             for (int j = 0; j < enemies.size(); j++) {
                 if (projectiles.get(i).getXpos() == enemies.get(j).getXpos() && projectiles.get(i).getYpos() == enemies.get(j).getYpos()) {
-                    player.addScore(enemies.get(j).getScore());
+                    player.AddScore(enemies.get(j).getScore());
                     enemies.remove(j);
                     j++;
                     deleteProjectile=true;
@@ -104,7 +110,7 @@ public class GameScreen implements IScene {
         //checks for collision with player and kills them
         for (SpawnEnemy enemy : enemies) {
             if (enemy.getXpos() == player.getXpos() && enemy.getYpos() == player.getYpos()) {
-                player.death();
+                player.Death();
                 enemies.clear();
                 projectiles.clear();
                 player.setXpos(width / 2);
@@ -114,7 +120,7 @@ public class GameScreen implements IScene {
             }
         }
         //adds one point after every turn
-        player.addScore(1);
+        player.AddScore(1);
     }
 
     @Override
