@@ -6,6 +6,7 @@ import org.game.scene_manager.SceneManager;
 
 public class MenuScene implements IScene {
     SceneManager manager;
+
     @Override
     public void init(SceneManager manager) {
         this.manager = manager;
@@ -14,7 +15,7 @@ public class MenuScene implements IScene {
     @Override
     public void update(String line) {
         //set scene based on user input
-        switch(line){
+        switch (line) {
             case "1":
                 manager.setCurrentScene(SceneEnum.GAME);
                 break;
