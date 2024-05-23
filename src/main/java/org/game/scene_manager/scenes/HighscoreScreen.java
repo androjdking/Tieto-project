@@ -9,22 +9,19 @@ import org.game.scene_manager.SceneManager;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 import static java.lang.System.exit;
 import static java.lang.System.load;
 
 public class HighscoreScreen implements IScene {
     SceneManager manager;
-    Score playerscore = new Score(Player.instance.getScore(), "");
+    Score playerscore = new Score(0, "");
     ScoreLoader scoreLoader = new ScoreLoader();
     ArrayList<Score> scores = new ArrayList<>();
     ArrayList<String> loadedText = new ArrayList<>();
-    boolean isLoaded = false;
     boolean fileReadable = true;
+    boolean isLoaded = false;
 
     @Override
     public void init(SceneManager manager) {
@@ -33,7 +30,9 @@ public class HighscoreScreen implements IScene {
 
     @Override
     public void update(String line) {
+        isLoaded = true;
         //gets player score and resets score counter to 0
+        //playerscore needs additional update to load correct score
         playerscore.setScore(Player.instance.getScore());
         //loads score data
         loadedText = scoreLoader.readFile();
@@ -47,7 +46,6 @@ public class HighscoreScreen implements IScene {
                 String[] splitText = scoreLoader.splitByColumn(s);
                 Score score = new Score(Integer.parseInt(splitText[1]), splitText[0]);
                 scores.add(score);
-                isLoaded = true;
                 //removes scores from list that are longer than one
                 for (int i = 0; i < scores.size(); i++) {
                     if (i > 10) {
@@ -62,8 +60,20 @@ public class HighscoreScreen implements IScene {
         Collections.sort(scores);
         switch (line) {
             case "1":
-                playerscore.setScore(1500);
+                while(true){
+                    System.out.print("Enter nickname:");
+                    Scanner scanner = new Scanner(System.in);
+                    String name = scanner.nextLine();
+                    if(name.length()>3){
+                        System.out.println("Nickname should be 3 characters long!");
+                    }
+                    else{
+                        playerscore.setName(name.toUpperCase());
+                        break;
+                    }
+                }
                 scores = scoreLoader.overwriteScore(scores, playerscore);
+                scoreLoader.writeFile(scores);
                 break;
             case "2":
                 loadedText.clear();
@@ -84,9 +94,8 @@ public class HighscoreScreen implements IScene {
 
     @Override
     public void render() {
-        String line = "";
-        if (!isLoaded) {
-            update(line);
+        if(!isLoaded){
+            update("");
         }
         //console "clear"
         for (int i = 0; i < 10; i++) {
@@ -101,7 +110,7 @@ public class HighscoreScreen implements IScene {
             }
         }
         System.out.print("Your current score: ");
-        System.out.println(playerscore.getScore());
+        System.out.println(Player.instance.getScore());
         System.out.println("[1] Save your score");
         System.out.println("[2] Return to menu");
         System.out.println("[3] Exit");
