@@ -4,27 +4,34 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
-public class FileScore {
+public class ScoreLoader {
     File file = new File("scores.txt");
-    public String text;
+    private String text = "";
 
-    public void readFile() {
+    public ArrayList<String> readFile() {
+        //tries to read file
         try {
+            ArrayList<String> list = new ArrayList<>();
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
                 text = myReader.nextLine();
-
+                list.add(text);
             }
             myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-            e.printStackTrace();
+            return list;
+        } //if not then creates file and returns nothing
+        catch (FileNotFoundException e) {
+            createFile();
+            return new ArrayList<>();
         }
     }
 
     public void createFile() {
+        //tries to create file
         try {
             if (file.createNewFile()) {
                 System.out.println("File has been created");
@@ -36,10 +43,19 @@ public class FileScore {
             e.printStackTrace();
         }
     }
+    public ArrayList<Score> overwriteScore(ArrayList<Score> list, Score player) {
+        for(int i = 0; i < list.size(); i++) {
+            if(player.getScore() > list.get(i).getScore()){
+                list.add(i ,player);
+                break;
+            }
+        }
+        return list;
+    }
 
-    public void writeFile() {
+    public void writeFile(String text) {
         try {
-            FileWriter file = new FileWriter("scores.txt");
+            FileWriter file = new FileWriter("scores.txt",false);
             file.write(text);
             file.close();
             System.out.println("Successfully wrote to the file.");
@@ -47,5 +63,8 @@ public class FileScore {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+    public String[] splitByColumn(String text){
+        return text.split(":");
     }
 }
