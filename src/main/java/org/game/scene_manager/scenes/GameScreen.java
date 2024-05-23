@@ -108,7 +108,7 @@ public class GameScreen implements IScene {
         boolean deleteProjectile = false;
         for (int i = 0; i < projectiles.size(); i++) {
             for (int j = 0; j < enemies.size(); j++) {
-                if (projectiles.get(i).getXpos() == enemies.get(j).getXpos() && projectiles.get(i).getYpos() == enemies.get(j).getYpos()) {
+                if (projectiles.get(i).getXpos() == enemies.get(j).getXpos() && (projectiles.get(i).getYpos() == enemies.get(j).getYpos() || projectiles.get(i).getYpos()+1 == enemies.get(j).getYpos())) {
                     player.addScore(enemies.get(j).getScore());
                     enemies.remove(j);
                     j++;
@@ -152,19 +152,17 @@ public class GameScreen implements IScene {
         for (int rows = 0; rows < height; rows++) {
             StringBuilder row = new StringBuilder("|");
             row.append(" ".repeat(width));
-            for(int cols = 0; cols < width+1; cols++) {
-                if(player.getXpos()== cols && player.getYpos()== rows){
-                    row.setCharAt(cols+1,player.getIcon());
+            if(player.getYpos()== rows){
+                row.setCharAt(player.getXpos()+1, player.getIcon());
+            }
+            for (SpawnEnemy enemy :enemies){
+                if(enemy.getYpos()==rows){
+                    row.setCharAt(enemy.getXpos()+1,enemy.getIcon());
                 }
-                for(SpawnEnemy enemy :enemies){
-                    if(enemy.getXpos()== cols && enemy.getYpos()== rows){
-                        row.setCharAt(cols+1,enemy.getIcon());
-                    }
-                }
-                for(Projectile projectile: projectiles){
-                    if(projectile.getXpos()== cols && projectile.getYpos()== rows){
-                        row.setCharAt(cols+1, projectile.getIcon());
-                    }
+            }
+            for(Projectile projectile :projectiles){
+                if(projectile.getYpos()==rows){
+                    row.setCharAt(projectile.getXpos()+1, projectile.getIcon());
                 }
             }
             row.append("|");
