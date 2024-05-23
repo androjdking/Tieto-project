@@ -147,23 +147,22 @@ public class GameScreen implements IScene {
     public void render() {
         Player player = Player.instance;
         boolean charPresent = false;
-        //console "clear"
-        for (int i = 0; i < 10; i++) {
+        for (int i=0;i<10;i++){
             System.out.println();
         }
         // display graphics
         for (int rows = 0; rows < height; rows++) {
-            System.out.print("|");
+            StringBuilder row = new StringBuilder("|");
             for (int columns = 0; columns < width; columns++) {
                 //check if current position matches player's position
                 if (columns == player.getXpos() && rows == player.getYpos()) {
-                    System.out.print(player.getIcon());
+                    row.append(player.getIcon());
                     continue;
                 }
                 //check if current position cointains any projectile's position
                 for (Projectile projectile : projectiles) {
                     if (projectile.getXpos() == columns && projectile.getYpos() == rows) {
-                        System.out.print(projectile.getIcon());
+                        row.append(projectile.getIcon());
                         charPresent = true;
                     }
                 }
@@ -172,17 +171,18 @@ public class GameScreen implements IScene {
                 if (!charPresent) {
                     for (SpawnEnemy enemy : enemies) {
                         if (enemy.getXpos() == columns && enemy.getYpos() == rows) {
-                            System.out.print(enemy.getIcon());
+                            row.append(enemy.getIcon());
                             charPresent = true;
                         }
                     }
                 }
                 if (!charPresent) {
-                    System.out.print(' ');
+                    row.append(" ");
                 }
                 charPresent = false;
             }
-            System.out.println("|");
+            row.append("|");
+            System.out.println(row);
         }
     }
 }
