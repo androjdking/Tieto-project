@@ -9,6 +9,7 @@ import org.game.scene_manager.SceneManager;
 public class SettingScene implements IScene {
     public static int diff=3;
     public static int cooldown=3;
+    public static int enemyCooldown = 3;
     SceneManager manager;
     Scanner scan = new Scanner(System.in);
     String ship;
@@ -51,7 +52,17 @@ public class SettingScene implements IScene {
                 }
                 break;
             case "4":
-                System.out.println("...");
+                while(true){
+                    try{
+                        System.out.println("Choose enemy spawn cooldown");
+                        enemyCooldown = Integer.parseInt(scan.nextLine());
+                        System.out.println("Enemy cooldown set to: " + enemyCooldown);
+                        break;
+                    }
+                    catch (Exception e){
+                        System.out.println("Cooldown must be number!");
+                    }
+                }
                 break;
             case "5":{
                 manager.setCurrentScene(SceneEnum.MENU);
@@ -66,7 +77,7 @@ public class SettingScene implements IScene {
         System.out.println("[1] Difficulty");
         System.out.println("[2] Chose your ship");
         System.out.println("[3] Choose projectile cooldown");
-        System.out.println("[4] ");
+        System.out.println("[4] Choose enemy spawn cooldown");
         System.out.println("[5] Return");
 
 

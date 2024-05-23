@@ -29,8 +29,6 @@ public class GameScreen implements IScene {
     public void update(String line) {
         Player player = Player.instance;
 
-
-
         //Spawnrate based on difficulty
         if(first) {
             player.alive = true;
@@ -38,6 +36,7 @@ public class GameScreen implements IScene {
             if (SettingScene.diff == 3) spawnRate += 1;
             if (SettingScene.diff == 5) spawnRate += 2;
             projectileCooldown = SettingScene.cooldown;
+            pauseForSpawn = SettingScene.enemyCooldown;
             first = false;
         }
 
@@ -126,8 +125,6 @@ public class GameScreen implements IScene {
             }
         }
 
-
-
         //checks for collision with player and kills them
         for (SpawnEnemy enemy : enemies) {
             if (enemy.getXpos() == player.getXpos() && enemy.getYpos() == player.getYpos()) {
@@ -163,6 +160,7 @@ public class GameScreen implements IScene {
                     System.out.print(player.getIcon());
                     continue;
                 }
+                //check if current position cointains any projectile's position
                 for (Projectile projectile : projectiles) {
                     if (projectile.getXpos() == columns && projectile.getYpos() == rows) {
                         System.out.print(projectile.getIcon());
