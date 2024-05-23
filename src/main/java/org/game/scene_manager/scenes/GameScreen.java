@@ -16,6 +16,9 @@ public class GameScreen implements IScene {
     ArrayList<Projectile> projectiles = new ArrayList<>();
     int spawnRate = (int) (width * Math.random() ); //+ SettingScene.diff
     int pauseForSpawn =3;
+    boolean first = true;
+    int projectileCooldown = 3;
+    int countDown = 0;
 
     @Override
     public void init(SceneManager manager) {
@@ -25,12 +28,18 @@ public class GameScreen implements IScene {
     @Override
     public void update(String line) {
         Player player = Player.instance;
-        player.alive = true;
+
+
 
         //Spawnrate based on difficulty
-        if (SettingScene.diff == 1) spawnRate-=1;
-        if (SettingScene.diff == 4) spawnRate+=1;
-        if (SettingScene.diff == 5) spawnRate+=2;
+        if(first) {
+            player.alive = true;
+            if (SettingScene.diff == 1) spawnRate -= 1;
+            if (SettingScene.diff == 3) spawnRate += 1;
+            if (SettingScene.diff == 5) spawnRate += 2;
+            projectileCooldown = SettingScene.cooldown;
+            first = false;
+        }
 
         // spawn algorithm
         if (pauseForSpawn == 3) {
@@ -74,24 +83,17 @@ public class GameScreen implements IScene {
             case "e": {
                 enemies.clear();
                 projectiles.clear();
+                first = true;
                 manager.setCurrentScene(SceneEnum.DEATH);
                 break;
             }
             case "w":
-                Projectile projectile = new Projectile(player.getXpos(), player.getYpos());
-                projectiles.add(projectile);
-                break;
-        }
-        //removes projectiles if projectile reaches y position = 0
-        if (!projectiles.isEmpty()) {
-            for (int i = 0; i < projectiles.size(); i++) {
-                if (projectiles.get(i).getYpos() == 0) {
-                    projectiles.remove(i);
-                    i--;
-                    continue;
+                if(countDown >= projectileCooldown){
+                    Projectile projectile = new Projectile(player.getXpos(), player.getYpos());
+                    projectiles.add(projectile);
+                    countDown=0;
                 }
-                projectiles.get(i).setYpos(projectiles.get(i).getYpos() - 1);
-            }
+                break;
         }
         //checks for collision between projectile and enemies and removes them
         boolean deleteProjectile = false;
@@ -111,6 +113,19 @@ public class GameScreen implements IScene {
             }
 
         }
+        //removes projectiles if projectile reaches y position = 0
+        //also moves projectiles forward
+        if (!projectiles.isEmpty()) {
+            for (int i = 0; i < projectiles.size(); i++) {
+                if (projectiles.get(i).getYpos() == 0) {
+                    projectiles.remove(i);
+                    i--;
+                    continue;
+                }
+                projectiles.get(i).setYpos(projectiles.get(i).getYpos() - 1);
+            }
+        }
+
 
 
         //checks for collision with player and kills them
@@ -121,11 +136,13 @@ public class GameScreen implements IScene {
                 projectiles.clear();
                 player.setXpos(width / 2);
                 player.setYpos(height - 1);
+                first = true;
                 manager.setCurrentScene(SceneEnum.DEATH);
                 break;
             }
         }
         //adds one point after every turn
+        countDown++;
         player.addScore(1);
     }
 

@@ -8,6 +8,7 @@ import org.game.scene_manager.SceneManager;
 
 public class SettingScene implements IScene {
     public static int diff=3;
+    public static int cooldown=3;
     SceneManager manager;
     Scanner scan = new Scanner(System.in);
     String ship;
@@ -20,9 +21,16 @@ public class SettingScene implements IScene {
     public void update(String line) {
         switch (line) {
             case "1":
-                System.out.println("["+ diff +"] Choose difficulty (1-3-5)");
-                diff = Integer.parseInt(scan.nextLine());
-                System.out.println("Difficulty set to "+diff);
+                while(true) {
+                    try {
+                        System.out.println("["+ diff +"] Choose difficulty (1-3-5)");
+                        diff = Integer.parseInt(scan.nextLine());
+                        System.out.println("Difficulty set to " + diff);
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("[" + diff + "] Invalid difficulty");
+                    }
+                }
                 break;
             case "2":
                 System.out.println("["+Player.instance.getIcon()+"] Type character to be set as your space-ship: ");
@@ -31,7 +39,16 @@ public class SettingScene implements IScene {
                 //System.out.println(Player.instance.getIcon()); scanner test
                 break;
             case "3":
-                System.out.println("_");
+                while(true) {
+                    try {
+                        System.out.println("Choose your ship's projectile cooldown (in rounds)");
+                        cooldown = Integer.parseInt(scan.nextLine());
+                        System.out.println("Cooldown set to: " + cooldown);
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Cooldown must be number!");
+                    }
+                }
                 break;
             case "4":
                 System.out.println("...");
@@ -48,7 +65,7 @@ public class SettingScene implements IScene {
         System.out.println("Settings");
         System.out.println("[1] Difficulty");
         System.out.println("[2] Chose your ship");
-        System.out.println("[3] ");
+        System.out.println("[3] Choose projectile cooldown");
         System.out.println("[4] ");
         System.out.println("[5] Return");
 
