@@ -56,17 +56,18 @@ public class GameScreen implements IScene {
                 if (enemy != null) enemies.add(enemy);
             }
         }
-
-        // moves enemies forward
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).setYpos(enemies.get(i).getYpos() + 1);
-            if (enemies.get(i).getYpos() == height) {
-                enemies.remove(i);
-                i--;
+        //removes projectiles if projectile reaches y position = 0
+        //also moves projectiles forward
+        if (!projectiles.isEmpty()) {
+            for (int i = 0; i < projectiles.size(); i++) {
+                if (projectiles.get(i).getYpos() == 0) {
+                    projectiles.remove(i);
+                    i--;
+                    continue;
+                }
+                projectiles.get(i).setYpos(projectiles.get(i).getYpos() - 1);
             }
         }
-        pauseForSpawn++;
-
         //changing position of player;
         switch (line) {
             case "a":
@@ -88,12 +89,21 @@ public class GameScreen implements IScene {
             }
             case "w":
                 if(countDown >= projectileCooldown){
-                    Projectile projectile = new Projectile(player.getXpos(), player.getYpos());
+                    Projectile projectile = new Projectile(player.getXpos(), player.getYpos()-1);
                     projectiles.add(projectile);
                     countDown=0;
                 }
                 break;
         }
+        // moves enemies forward
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).setYpos(enemies.get(i).getYpos() + 1);
+            if (enemies.get(i).getYpos() == height) {
+                enemies.remove(i);
+                i--;
+            }
+        }
+
         //checks for collision between projectile and enemies and removes them
         boolean deleteProjectile = false;
         for (int i = 0; i < projectiles.size(); i++) {
@@ -109,19 +119,6 @@ public class GameScreen implements IScene {
                 projectiles.remove(i);
                 i--;
                 deleteProjectile=false;
-            }
-
-        }
-        //removes projectiles if projectile reaches y position = 0
-        //also moves projectiles forward
-        if (!projectiles.isEmpty()) {
-            for (int i = 0; i < projectiles.size(); i++) {
-                if (projectiles.get(i).getYpos() == 0) {
-                    projectiles.remove(i);
-                    i--;
-                    continue;
-                }
-                projectiles.get(i).setYpos(projectiles.get(i).getYpos() - 1);
             }
         }
 
@@ -139,6 +136,7 @@ public class GameScreen implements IScene {
             }
         }
         //adds one point after every turn
+        pauseForSpawn++;
         countDown++;
         player.addScore(1);
     }
@@ -153,33 +151,21 @@ public class GameScreen implements IScene {
         // display graphics
         for (int rows = 0; rows < height; rows++) {
             StringBuilder row = new StringBuilder("|");
-            for (int columns = 0; columns < width; columns++) {
-                //check if current position matches player's position
-                if (columns == player.getXpos() && rows == player.getYpos()) {
-                    row.append(player.getIcon());
-                    continue;
+            row.append(" ".repeat(width));
+            for(int cols = 0; cols < width+1; cols++) {
+                if(player.getXpos()== cols && player.getYpos()== rows){
+                    row.setCharAt(cols+1,player.getIcon());
                 }
-                //check if current position cointains any projectile's position
-                for (Projectile projectile : projectiles) {
-                    if (projectile.getXpos() == columns && projectile.getYpos() == rows) {
-                        row.append(projectile.getIcon());
-                        charPresent = true;
+                for(SpawnEnemy enemy :enemies){
+                    if(enemy.getXpos()== cols && enemy.getYpos()== rows){
+                        row.setCharAt(cols+1,enemy.getIcon());
                     }
                 }
-
-                //if enemy is present on current row and columns then it prints them
-                if (!charPresent) {
-                    for (SpawnEnemy enemy : enemies) {
-                        if (enemy.getXpos() == columns && enemy.getYpos() == rows) {
-                            row.append(enemy.getIcon());
-                            charPresent = true;
-                        }
+                for(Projectile projectile: projectiles){
+                    if(projectile.getXpos()== cols && projectile.getYpos()== rows){
+                        row.setCharAt(cols+1, projectile.getIcon());
                     }
                 }
-                if (!charPresent) {
-                    row.append(" ");
-                }
-                charPresent = false;
             }
             row.append("|");
             System.out.println(row);
