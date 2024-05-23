@@ -59,4 +59,9 @@ public class Player {
     public char getIcon() {
         return this.icon;
     }
+
+    public void setIcon(char icon) {
+        this.icon = icon;
+    }
+
 }

@@ -24,7 +24,7 @@ public class DeathScreen implements IScene {
                 break;
             case "3":
                 manager.setCurrentScene(SceneEnum.MENU);
-
+                break;
         }
     }
 
@@ -45,6 +45,6 @@ public class DeathScreen implements IScene {
         }
         System.out.println("[1] Retry");
         System.out.println("[2] Show highscore");
-        System.out.println("[3] Exit");
+        System.out.println("[3] Return to menu");
     }
 }

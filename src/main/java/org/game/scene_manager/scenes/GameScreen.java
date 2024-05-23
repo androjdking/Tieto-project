@@ -6,7 +6,6 @@ import org.game.actors.SpawnEnemy;
 import org.game.scene_manager.IScene;
 import org.game.scene_manager.SceneEnum;
 import org.game.scene_manager.SceneManager;
-
 import java.util.ArrayList;
 
 public class GameScreen implements IScene {
@@ -15,8 +14,8 @@ public class GameScreen implements IScene {
     //variables for enemies
     ArrayList<SpawnEnemy> enemies = new ArrayList<>();
     ArrayList<Projectile> projectiles = new ArrayList<>();
-    int spawnRate = (int) (width * Math.random());
-    int pauseForSpawn = 3;
+    int spawnRate = (int) (width * Math.random() ); //+ SettingScene.diff
+    int pauseForSpawn =3;
 
     @Override
     public void init(SceneManager manager) {
@@ -27,6 +26,12 @@ public class GameScreen implements IScene {
     public void update(String line) {
         Player player = Player.instance;
         player.alive = true;
+
+        //Spawnrate based on difficulty
+        if (SettingScene.diff == 1) spawnRate-=1;
+        if (SettingScene.diff == 4) spawnRate+=1;
+        if (SettingScene.diff == 5) spawnRate+=2;
+
         // spawn algorithm
         if (pauseForSpawn == 3) {
             pauseForSpawn = 0;
@@ -41,9 +46,9 @@ public class GameScreen implements IScene {
                     }
                 }
                 if (enemy != null) enemies.add(enemy);
-
             }
         }
+
         // moves enemies forward
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).setYpos(enemies.get(i).getYpos() + 1);
