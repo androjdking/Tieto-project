@@ -1,5 +1,4 @@
 package org.game.scene_manager.scenes;
-
 import org.game.actors.Player;
 import org.game.actors.Projectile;
 import org.game.actors.SpawnEnemy;
@@ -88,10 +87,10 @@ public class GameScreen implements IScene {
                 break;
             }
             case "w":
-                if(countDown >= projectileCooldown){
+                if(countDown == 0){
                     Projectile projectile = new Projectile(player.getXpos(), player.getYpos()-1);
                     projectiles.add(projectile);
-                    countDown=0;
+                    countDown=projectileCooldown;
                 }
                 break;
         }
@@ -137,7 +136,7 @@ public class GameScreen implements IScene {
         }
         //adds one point after every turn
         pauseForSpawn++;
-        countDown++;
+        if(countDown>0) countDown--;
         player.addScore(1);
     }
 
@@ -167,6 +166,12 @@ public class GameScreen implements IScene {
             }
             row.append("|");
             System.out.println(row);
+        }
+        //System.out.println("Current score: "+org.game.actors.score.Score.getScore());
+        if(countDown==0) {
+            System.out.println("Laser: READY");
+        }else{
+        System.out.println("Laser: on cooldown "+countDown);
         }
     }
 }

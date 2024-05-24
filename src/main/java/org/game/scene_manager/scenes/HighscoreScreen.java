@@ -80,8 +80,6 @@ public class HighscoreScreen implements IScene {
                 Player.instance.setScore(0);
                 manager.setCurrentScene(SceneEnum.MENU);
                 break;
-            case "3":
-                exit(0);
         }
         //removes scores from list that are longer than one
         for (int i = 0; i < scores.size(); i++) {
@@ -109,10 +107,10 @@ public class HighscoreScreen implements IScene {
                 System.out.println("{" + i + "} " + scores.get(i).getName() + "     " + scores.get(i).getScore());
             }
         }
+        System.out.println();
         System.out.print("Your current score: ");
         System.out.println(Player.instance.getScore());
         System.out.println("[1] Save your score");
         System.out.println("[2] Return to menu");
-        System.out.println("[3] Exit");
     }
 }
