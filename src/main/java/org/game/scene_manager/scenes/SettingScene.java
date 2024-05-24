@@ -7,7 +7,7 @@ import org.game.scene_manager.SceneEnum;
 import org.game.scene_manager.SceneManager;
 
 public class SettingScene implements IScene {
-    public static int diff=3;
+    public static int diff=1;
     public static int cooldown=3;
     public static int enemyCooldown = 3;
     SceneManager manager;
@@ -25,7 +25,7 @@ public class SettingScene implements IScene {
                 System.out.println();
                 while(true) {
                     try {
-                        System.out.println("["+ diff +"] Choose difficulty (1-3-5)");
+                        System.out.println("["+ diff +"] Choose difficulty (1-5)");
                         diff = Integer.parseInt(scan.nextLine());
                         if(diff<=5 && diff>=1) {
                             System.out.println("Difficulty set to " + diff);
@@ -88,7 +88,5 @@ public class SettingScene implements IScene {
         System.out.println("[3] Choose projectile cooldown");
         System.out.println("[4] Choose enemy spawn cooldown");
         System.out.println("[5] Return");
-
-
     }
 }

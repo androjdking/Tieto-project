@@ -15,10 +15,6 @@ public class Projectile {
         return xpos;
     }
 
-    public void setXpos(int xpos) {
-        this.xpos = xpos;
-    }
-
     public int getYpos() {
         return ypos;
     }

@@ -28,12 +28,11 @@ public class GameScreen implements IScene {
     @Override
     public void update(String line) {
         Player player = Player.instance;
+        if(spawnRate==0)spawnRate=1;
 
         //Spawnrate based on difficulty
         if (first) {
-            if (SettingScene.diff == 1) spawnRate -= 1;
-            if (SettingScene.diff == 3) spawnRate += 1;
-            if (SettingScene.diff == 5) spawnRate += 2;
+            spawnRate = (int) (width * Math.random() * SettingScene.diff);
             projectileCooldown = SettingScene.cooldown;
             pauseForSpawn = SettingScene.enemyCooldown;
             first = false;
@@ -89,10 +88,10 @@ public class GameScreen implements IScene {
                 break;
             }
             case "w":
-                if(countDown == 0){
-                    Projectile projectile = new Projectile(player.getXpos(), player.getYpos()-1);
+                if (countDown == 0) {
+                    Projectile projectile = new Projectile(player.getXpos(), player.getYpos() - 1);
                     projectiles.add(projectile);
-                    countDown=projectileCooldown;
+                    countDown = projectileCooldown;
                 }
                 break;
         }
@@ -109,7 +108,7 @@ public class GameScreen implements IScene {
         boolean deleteProjectile = false;
         for (int i = 0; i < projectiles.size(); i++) {
             for (int j = 0; j < enemies.size(); j++) {
-                if(projectiles.get(i).getYpos()==enemies.get(j).getYpos() || projectiles.get(i).getYpos() + 1 == enemies.get(j).getYpos()) {
+                if (projectiles.get(i).getYpos() == enemies.get(j).getYpos() || projectiles.get(i).getYpos() + 1 == enemies.get(j).getYpos()) {
                     if (projectiles.get(i).getXpos() == enemies.get(j).getXpos()) {
                         player.addScore(enemies.get(j).getScore());
                         enemies.remove(j);
@@ -118,10 +117,10 @@ public class GameScreen implements IScene {
                     }
                 }
             }
-            if(deleteProjectile){
+            if (deleteProjectile) {
                 projectiles.remove(i);
                 i--;
-                deleteProjectile=false;
+                deleteProjectile = false;
             }
         }
 
@@ -146,17 +145,17 @@ public class GameScreen implements IScene {
     @Override
     public void render() {
         Player player = Player.instance;
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n\n\n");
         // display graphics
-        String[] screenBuild = {"|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|"};
-        screenBuild[player.getYpos()] = screenBuild[player.getYpos()].substring(0, player.getXpos()+1) + player.getIcon() + screenBuild[player.getYpos()].substring(player.getXpos()+2);
+        String[] screenBuild = {"|" + " ".repeat(width) + "|", "|" + " ".repeat(width) + "|", "|" + " ".repeat(width) + "|", "|" + " ".repeat(width) + "|", "|" + " ".repeat(width) + "|", "|" + " ".repeat(width) + "|", "|" + " ".repeat(width) + "|", "|" + " ".repeat(width) + "|", "|" + " ".repeat(width) + "|", "|" + " ".repeat(width) + "|"};
+        screenBuild[player.getYpos()] = screenBuild[player.getYpos()].substring(0, player.getXpos() + 1) + player.getIcon() + screenBuild[player.getYpos()].substring(player.getXpos() + 2);
         for (SpawnEnemy enemy : enemies) {
-            screenBuild[enemy.getYpos()] = screenBuild[enemy.getYpos()].substring(0,enemy.getXpos()+1) + enemy.getIcon() + screenBuild[enemy.getYpos()].substring(enemy.getXpos()+2);
+            screenBuild[enemy.getYpos()] = screenBuild[enemy.getYpos()].substring(0, enemy.getXpos() + 1) + enemy.getIcon() + screenBuild[enemy.getYpos()].substring(enemy.getXpos() + 2);
         }
         for (Projectile projectile : projectiles) {
-            screenBuild[projectile.getYpos()]= screenBuild[projectile.getYpos()].substring(0,projectile.getXpos()+1) + projectile.getIcon() + screenBuild[projectile.getYpos()].substring(projectile.getXpos()+2);
+            screenBuild[projectile.getYpos()] = screenBuild[projectile.getYpos()].substring(0, projectile.getXpos() + 1) + projectile.getIcon() + screenBuild[projectile.getYpos()].substring(projectile.getXpos() + 2);
         }
-        for(String screen : screenBuild){
+        for (String screen : screenBuild) {
             System.out.println(screen);
         }
         //HUD displaing laser status

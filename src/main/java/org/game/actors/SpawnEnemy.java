@@ -17,8 +17,8 @@ public class SpawnEnemy {
     public void setIcon() {
         char[] icons = {'V', 'G', 'H', 'T', 'Y', 'Q'};
         int index = (int) (Math.random() * icons.length);
-        icon = icons[index];
-        score = index * 10;
+        this.icon = icons[index];
+        this.score = index * 10;
     }
 
     public int getScore() {
@@ -35,10 +35,6 @@ public class SpawnEnemy {
 
     public char getIcon() {
         return this.icon;
-    }
-
-    public void setXpos(int xpos) {
-        this.xpos = xpos;
     }
 
     public void setYpos(int ypos) {
