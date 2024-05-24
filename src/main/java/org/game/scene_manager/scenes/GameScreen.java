@@ -167,5 +167,6 @@ public class GameScreen implements IScene {
         } else {
             System.out.println(space+ANSI_RED+"Laser: on cooldown " + countDown + ANSI_RESET);
         }
+        System.out.println("\n[w] Shoot laser\n[a] Move left\n[d] Move right\n[s] Stay still");
     }
 }
