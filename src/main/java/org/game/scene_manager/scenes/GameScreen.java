@@ -143,7 +143,6 @@ public class GameScreen implements IScene {
     @Override
     public void render() {
         Player player = Player.instance;
-        boolean charPresent = false;
         for (int i=0;i<10;i++){
             System.out.println();
         }

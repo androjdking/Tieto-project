@@ -7,12 +7,8 @@ import org.game.scene_manager.IScene;
 import org.game.scene_manager.SceneEnum;
 import org.game.scene_manager.SceneManager;
 
-import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.*;
 
-import static java.lang.System.exit;
-import static java.lang.System.load;
 
 public class HighscoreScreen implements IScene {
     SceneManager manager;
