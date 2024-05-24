@@ -33,13 +33,8 @@ public class ScoreLoader {
     public void createFile() {
         //tries to create file
         try {
-            if (file.createNewFile()) {
-                System.out.println("File has been created");
-            } else {
-                System.out.println("File already exists");
-            }
+            file.createNewFile();
         } catch (IOException e) {
-            System.out.println("File could not be created");
             e.printStackTrace();
         }
     }
@@ -56,15 +51,13 @@ public class ScoreLoader {
     public void writeFile(ArrayList<Score> list) {
         StringBuilder text = new StringBuilder();
         for(int i = 0; i < list.size(); i++) {
-            text.append(list.get(i).getName()).append(":").append(list.get(i).getScore() + "\n");
+            text.append(list.get(i).getName()).append(":").append(list.get(i).getScore()).append("\n");
         }
         try {
             FileWriter file = new FileWriter("scores.txt",false);
             file.write(text.toString());
             file.close();
-            System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
-            System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }

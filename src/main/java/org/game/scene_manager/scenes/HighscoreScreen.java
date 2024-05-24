@@ -12,6 +12,11 @@ import java.util.*;
 
 public class HighscoreScreen implements IScene {
     SceneManager manager;
+
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    String space = IScene.space + "          ";
+
     Score playerscore = new Score(0, "");
     ScoreLoader scoreLoader = new ScoreLoader();
     ArrayList<Score> scores = new ArrayList<>();
@@ -51,17 +56,17 @@ public class HighscoreScreen implements IScene {
                 }
             }
         } else {
-            System.out.println("Couldn't get any score!");
+            System.out.println(space+"Couldn't get any score!");
         }
         Collections.sort(scores);
         switch (line) {
             case "1":
                 while(true){
-                    System.out.print("Enter nickname:");
+                    System.out.print(space+"Enter nickname:");
                     Scanner scanner = new Scanner(System.in);
                     String name = scanner.nextLine();
                     if(name.length()>3){
-                        System.out.println("Nickname should be 3 characters long!");
+                        System.out.println(space+"Nickname should be 3 characters long!");
                     }
                     else{
                         playerscore.setName(name.toUpperCase());
@@ -92,21 +97,33 @@ public class HighscoreScreen implements IScene {
             update("");
         }
         //console "clear"
-        for (int i = 0; i < 10; i++) {
-            System.out.println();
-        }
-        System.out.println("     NAME | SCORE");
+        System.out.println("\n\n\n\n\n\n");
+        System.out.println(ANSI_BLUE+"""
+
+
+                ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░░▒▓███████▓▒░░▒▓██████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░░▒▓████████▓▒░\s
+                ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       \s
+                ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       \s
+                ░▒▓████████▓▒░▒▓█▓▒░▒▓█▓▒▒▓███▓▒░▒▓████████▓▒░░▒▓██████▓▒░░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░░▒▓██████▓▒░  \s
+                ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       \s
+                ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░       \s
+                ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓██████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓████████▓▒░\s
+                                                                                                                               \s
+                                                                                                                               \s
+
+                """+ANSI_RESET);
+        System.out.println(space+"     NAME | SCORE");
         for (int i = 1; i < scores.size(); i++) {
             if (i < 10) {
-                System.out.println("{ " + i + "} " + scores.get(i).getName() + "     " + scores.get(i).getScore());
+                System.out.println(space+"{ " + i + "} " + scores.get(i).getName() + "     " + scores.get(i).getScore());
             } else {
-                System.out.println("{" + i + "} " + scores.get(i).getName() + "     " + scores.get(i).getScore());
+                System.out.println(space+"{" + i + "} " + scores.get(i).getName() + "     " + scores.get(i).getScore());
             }
         }
         System.out.println();
-        System.out.print("Your current score: ");
+        System.out.print(space+"Your current score: ");
         System.out.println(Player.instance.getScore());
-        System.out.println("[1] Save your score");
-        System.out.println("[2] Return to menu");
+        System.out.println(space+"[1] Save your score");
+        System.out.println(space+"[2] Return to menu");
     }
 }

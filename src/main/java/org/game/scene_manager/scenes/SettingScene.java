@@ -11,6 +11,10 @@ public class SettingScene implements IScene {
     public static int cooldown=3;
     public static int enemyCooldown = 3;
     SceneManager manager;
+
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     Scanner scan = new Scanner(System.in);
     String ship;
     @Override
@@ -25,20 +29,20 @@ public class SettingScene implements IScene {
                 System.out.println();
                 while(true) {
                     try {
-                        System.out.println("["+ diff +"] Choose difficulty (1-5)");
+                        System.out.println(space+"["+ diff +"] Choose difficulty (1-5)");
                         diff = Integer.parseInt(scan.nextLine());
                         if(diff<=5 && diff>=1) {
-                            System.out.println("Difficulty set to " + diff);
+                            System.out.println(space+"Difficulty set to " + diff);
                             break;
-                        } else System.out.println("[" + diff + "] Invalid difficulty");
+                        } else System.out.println(space+"[" + diff + "] Invalid difficulty");
                     } catch (Exception e) {
-                        System.out.println("[" + diff + "] Invalid difficulty");
+                        System.out.println(space+"[" + diff + "] Invalid difficulty");
                     }
                 }
                 break;
             case "2":
                 System.out.println();
-                System.out.println("["+Player.instance.getIcon()+"] Type character to be set as your space-ship: ");
+                System.out.println(space+"["+Player.instance.getIcon()+"] Type character to be set as your space-ship: ");
                 ship = scan.nextLine();
                 Player.instance.setIcon(ship.charAt(0));
                 //System.out.println(Player.instance.getIcon()); scanner test
@@ -48,12 +52,12 @@ public class SettingScene implements IScene {
                 manager.setCurrentScene(SceneEnum.SETTINGS);
                 while(true) {
                     try {
-                        System.out.println("Choose your ship's projectile cooldown (in rounds)");
+                        System.out.println(space+"Choose your ship's projectile cooldown (in rounds)");
                         cooldown = Integer.parseInt(scan.nextLine());
-                        System.out.println("Cooldown set to: " + cooldown);
+                        System.out.println(space+"Cooldown set to: " + cooldown);
                         break;
                     } catch (Exception e) {
-                        System.out.println("Cooldown must be number!");
+                        System.out.println(space+"Cooldown must be number!");
                     }
                 }
                 break;
@@ -62,13 +66,13 @@ public class SettingScene implements IScene {
                 manager.setCurrentScene(SceneEnum.SETTINGS);
                 while(true){
                     try{
-                        System.out.println("Choose enemy spawn cooldown (0-10)");
+                        System.out.println(space+"Choose enemy spawn cooldown (0-10)");
                         enemyCooldown = Integer.parseInt(scan.nextLine());
-                        System.out.println("Enemy cooldown set to: " + enemyCooldown);
+                        System.out.println(space+"Enemy cooldown set to: " + enemyCooldown);
                         break;
                     }
                     catch (Exception e){
-                        System.out.println("Cooldown must be number!");
+                        System.out.println(space+"Cooldown must be number!");
                     }
                 }
                 break;
@@ -81,12 +85,18 @@ public class SettingScene implements IScene {
 
     @Override
     public void render() {
+        System.out.println(ANSI_YELLOW+" ░▒▓███████▓▒░▒▓████████▓▒░▒▓████████▓▒░▒▓████████▓▒░▒▓█▓▒░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓███████▓▒░ \n" +
+                "░▒▓█▓▒░      ░▒▓█▓▒░         ░▒▓█▓▒░      ░▒▓█▓▒░   ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░        \n" +
+                "░▒▓█▓▒░      ░▒▓█▓▒░         ░▒▓█▓▒░      ░▒▓█▓▒░   ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░        \n" +
+                " ░▒▓██████▓▒░░▒▓██████▓▒░    ░▒▓█▓▒░      ░▒▓█▓▒░   ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒▒▓███▓▒░░▒▓██████▓▒░  \n" +
+                "       ░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░      ░▒▓█▓▒░   ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n" +
+                "       ░▒▓█▓▒░▒▓█▓▒░         ░▒▓█▓▒░      ░▒▓█▓▒░   ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░      ░▒▓█▓▒░ \n" +
+                "░▒▓███████▓▒░░▒▓████████▓▒░  ░▒▓█▓▒░      ░▒▓█▓▒░   ░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░░▒▓██████▓▒░░▒▓███████▓▒░"+ANSI_RESET);
         System.out.println();
-        System.out.println("Settings");
-        System.out.println("[1] Difficulty");
-        System.out.println("[2] Chose your ship");
-        System.out.println("[3] Choose projectile cooldown");
-        System.out.println("[4] Choose enemy spawn cooldown");
-        System.out.println("[5] Return");
+        System.out.println(space+"[1] Difficulty");
+        System.out.println(space+"[2] Chose your ship");
+        System.out.println(space+"[3] Choose projectile cooldown");
+        System.out.println(space+"[4] Choose enemy spawn cooldown");
+        System.out.println(space+"[5] Return");
     }
 }

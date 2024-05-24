@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 public class GameScreen implements IScene {
     SceneManager manager;
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     //variables for enemies
     ArrayList<SpawnEnemy> enemies = new ArrayList<>();
@@ -156,14 +159,13 @@ public class GameScreen implements IScene {
             screenBuild[projectile.getYpos()] = screenBuild[projectile.getYpos()].substring(0, projectile.getXpos() + 1) + projectile.getIcon() + screenBuild[projectile.getYpos()].substring(projectile.getXpos() + 2);
         }
         for (String screen : screenBuild) {
-            System.out.println(screen);
+            System.out.println(space+screen);
         }
-        //HUD displaing laser status
-        System.out.println();
-        if(countDown==0) {
-            System.out.println("Laser: READY");
-        }else{
-            System.out.println("Laser: on cooldown "+countDown);
+
+        if (countDown == 0) {
+            System.out.println(space+ANSI_GREEN+"Laser: READY"+ANSI_RESET);
+        } else {
+            System.out.println(space+ANSI_RED+"Laser: on cooldown " + countDown + ANSI_RESET);
         }
     }
 }

@@ -7,6 +7,9 @@ import org.game.actors.Player;
 
 public class DeathScreen implements IScene {
     SceneManager manager;
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     @Override
     public void init(SceneManager manager) {
         this.manager = manager;
@@ -37,14 +40,26 @@ public class DeathScreen implements IScene {
         }
 
         //make message in center
-        System.out.println("You are dead!");
-        System.out.println("Game over");
-        System.out.println("Your score: " + Player.instance.getScore());
+        System.out.println(ANSI_RED+"\n" +
+                "\n" +
+                "  ▄████  ▄▄▄       ███▄ ▄███▓▓█████     ▒█████   ██▒   █▓▓█████  ██▀███  \n" +
+                " ██▒ ▀█▒▒████▄    ▓██▒▀█▀ ██▒▓█   ▀    ▒██▒  ██▒▓██░   █▒▓█   ▀ ▓██ ▒ ██▒\n" +
+                "▒██░▄▄▄░▒██  ▀█▄  ▓██    ▓██░▒███      ▒██░  ██▒ ▓██  █▒░▒███   ▓██ ░▄█ ▒\n" +
+                "░▓█  ██▓░██▄▄▄▄██ ▒██    ▒██ ▒▓█  ▄    ▒██   ██░  ▒██ █░░▒▓█  ▄ ▒██▀▀█▄  \n" +
+                "░▒▓███▀▒ ▓█   ▓██▒▒██▒   ░██▒░▒████▒   ░ ████▓▒░   ▒▀█░  ░▒████▒░██▓ ▒██▒\n" +
+                " ░▒   ▒  ▒▒   ▓▒█░░ ▒░   ░  ░░░ ▒░ ░   ░ ▒░▒░▒░    ░ ▐░  ░░ ▒░ ░░ ▒▓ ░▒▓░\n" +
+                "  ░   ░   ▒   ▒▒ ░░  ░      ░ ░ ░  ░     ░ ▒ ▒░    ░ ░░   ░ ░  ░  ░▒ ░ ▒░\n" +
+                "░ ░   ░   ░   ▒   ░      ░      ░      ░ ░ ░ ▒       ░░     ░     ░░   ░ \n" +
+                "      ░       ░  ░       ░      ░  ░       ░ ░        ░     ░  ░   ░     \n" +
+                "                                                     ░                   \n" +
+                "\n"+ANSI_RESET);
+        System.out.println(space+"You are dead!");
+        System.out.println(space+"Your score: " + Player.instance.getScore());
         for(int i=0;i<(2)-1;i++){
             System.out.println();
         }
-        System.out.println("[1] Retry");
-        System.out.println("[2] Show highscore");
-        System.out.println("[3] Return to menu");
+        System.out.println(space+"[1] Retry");
+        System.out.println(space+"[2] Show highscore");
+        System.out.println(space+"[3] Return to menu");
     }
 }
