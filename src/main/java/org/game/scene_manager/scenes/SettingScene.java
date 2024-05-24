@@ -7,7 +7,7 @@ import org.game.scene_manager.SceneEnum;
 import org.game.scene_manager.SceneManager;
 
 public class SettingScene implements IScene {
-    public static int diff=3;
+    public static int diff=1;
     public static int cooldown=3;
     public static int enemyCooldown = 3;
     SceneManager manager;

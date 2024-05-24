@@ -31,9 +31,7 @@ public class GameScreen implements IScene {
 
         //Spawnrate based on difficulty
         if (first) {
-            if (SettingScene.diff == 1) spawnRate -= 1;
-            if (SettingScene.diff == 3) spawnRate += 1;
-            if (SettingScene.diff == 5) spawnRate += 2;
+            spawnRate = (int) (width * Math.random() * SettingScene.diff);
             projectileCooldown = SettingScene.cooldown;
             pauseForSpawn = SettingScene.enemyCooldown;
             first = false;
