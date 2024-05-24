@@ -159,5 +159,12 @@ public class GameScreen implements IScene {
         for(String screen : screenBuild){
             System.out.println(screen);
         }
+        //HUD displaing laser status
+        System.out.println();
+        if(countDown==0) {
+            System.out.println("Laser: READY");
+        }else{
+            System.out.println("Laser: on cooldown "+countDown);
+        }
     }
 }

@@ -30,6 +30,7 @@ public class SceneManager {
         sceneArray.add(SceneEnum.MENU.ordinal(), new MenuScene());
         sceneArray.add(SceneEnum.GAME.ordinal(), new GameScreen());
         sceneArray.add(SceneEnum.DEATH.ordinal(), new DeathScreen());
+        sceneArray.add(SceneEnum.CREDITS.ordinal(), new CreditScene());
         sceneArray.add(SceneEnum.HIGHSCORE.ordinal(), new HighscoreScreen());
         sceneArray.add(SceneEnum.SETTINGS.ordinal(), new SettingScene());
 

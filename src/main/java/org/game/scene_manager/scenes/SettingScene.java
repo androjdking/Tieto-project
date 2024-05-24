@@ -59,7 +59,7 @@ public class SettingScene implements IScene {
                 break;
             case "4":
                 System.out.println();
-                manager.setCurrentScene(SceneEnum.MENU);
+                manager.setCurrentScene(SceneEnum.SETTINGS);
                 while(true){
                     try{
                         System.out.println("Choose enemy spawn cooldown (0-10)");
