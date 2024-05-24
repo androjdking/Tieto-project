@@ -13,14 +13,10 @@ public class Player {
     private int score;
     private char icon;
 
-    // player can be played
-    public boolean alive;
-
 
     public Player(int startXPos, int startYPos) {
         this.xpos = startXPos;
         this.ypos = startYPos;
-        this.alive = true;
         this.score = 0;
         this.icon = 'A';
     }
@@ -50,10 +46,6 @@ public class Player {
 
     public int getYpos() {
         return this.ypos;
-    }
-
-    public void death() {
-        this.alive = false;
     }
 
     public char getIcon() {

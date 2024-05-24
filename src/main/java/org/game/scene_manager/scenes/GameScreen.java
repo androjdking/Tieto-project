@@ -6,7 +6,9 @@ import org.game.actors.SpawnEnemy;
 import org.game.scene_manager.IScene;
 import org.game.scene_manager.SceneEnum;
 import org.game.scene_manager.SceneManager;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameScreen implements IScene {
     SceneManager manager;
@@ -14,8 +16,8 @@ public class GameScreen implements IScene {
     //variables for enemies
     ArrayList<SpawnEnemy> enemies = new ArrayList<>();
     ArrayList<Projectile> projectiles = new ArrayList<>();
-    int spawnRate = (int) (width * Math.random() ); //+ SettingScene.diff
-    int pauseForSpawn =3;
+    int spawnRate = (int) (width * Math.random()); //+ SettingScene.diff
+    int pauseForSpawn = 3;
     boolean first = true;
     int projectileCooldown = 3;
     int countDown = 0;
@@ -30,8 +32,7 @@ public class GameScreen implements IScene {
         Player player = Player.instance;
 
         //Spawnrate based on difficulty
-        if(first) {
-            player.alive = true;
+        if (first) {
             if (SettingScene.diff == 1) spawnRate -= 1;
             if (SettingScene.diff == 3) spawnRate += 1;
             if (SettingScene.diff == 5) spawnRate += 2;
@@ -47,9 +48,11 @@ public class GameScreen implements IScene {
                 SpawnEnemy enemy = new SpawnEnemy();
                 if (!enemies.isEmpty()) {
                     for (SpawnEnemy checkEnemy : enemies) {
-                        if (enemy.getXpos() == checkEnemy.getXpos() && enemy.getYpos() == checkEnemy.getYpos()) {
-                            enemy = null;
-                            break;
+                        if(enemy.getYpos()==checkEnemy.getYpos()){
+                            if (enemy.getXpos() == checkEnemy.getXpos()) {
+                                enemy = null;
+                                break;
+                            }
                         }
                     }
                 }
@@ -71,12 +74,12 @@ public class GameScreen implements IScene {
         //changing position of player;
         switch (line) {
             case "a":
-                if (!(player.getXpos() - 1 < 0) && player.alive) {
+                if (!(player.getXpos() - 1 < 0)) {
                     player.setXpos(player.getXpos() - 1);
                 }
                 break;
             case "d":
-                if (!(player.getXpos() + 1 > width - 1) && player.alive) {
+                if (!(player.getXpos() + 1 > width - 1)) {
                     player.setXpos(player.getXpos() + 1);
                 }
                 break;
@@ -88,10 +91,10 @@ public class GameScreen implements IScene {
                 break;
             }
             case "w":
-                if(countDown >= projectileCooldown){
-                    Projectile projectile = new Projectile(player.getXpos(), player.getYpos()-1);
+                if (countDown >= projectileCooldown) {
+                    Projectile projectile = new Projectile(player.getXpos(), player.getYpos() - 1);
                     projectiles.add(projectile);
-                    countDown=0;
+                    countDown = 0;
                 }
                 break;
         }
@@ -108,24 +111,24 @@ public class GameScreen implements IScene {
         boolean deleteProjectile = false;
         for (int i = 0; i < projectiles.size(); i++) {
             for (int j = 0; j < enemies.size(); j++) {
-                if (projectiles.get(i).getXpos() == enemies.get(j).getXpos() && (projectiles.get(i).getYpos() == enemies.get(j).getYpos() || projectiles.get(i).getYpos()+1 == enemies.get(j).getYpos())) {
-                    player.addScore(enemies.get(j).getScore());
-                    enemies.remove(j);
-                    j++;
-                    deleteProjectile=true;
+                if(projectiles.get(i).getYpos()==enemies.get(j).getYpos() || projectiles.get(i).getYpos() + 1 == enemies.get(j).getYpos()) {
+                    if (projectiles.get(i).getXpos() == enemies.get(j).getXpos()) {
+                        player.addScore(enemies.get(j).getScore());
+                        enemies.remove(j);
+                        j--;
+                        deleteProjectile = true;
+                    }
                 }
             }
-            if(deleteProjectile){
+            if (deleteProjectile) {
                 projectiles.remove(i);
                 i--;
-                deleteProjectile=false;
             }
         }
 
         //checks for collision with player and kills them
         for (SpawnEnemy enemy : enemies) {
             if (enemy.getXpos() == player.getXpos() && enemy.getYpos() == player.getYpos()) {
-                player.death();
                 enemies.clear();
                 projectiles.clear();
                 player.setXpos(width / 2);
@@ -144,29 +147,18 @@ public class GameScreen implements IScene {
     @Override
     public void render() {
         Player player = Player.instance;
-        boolean charPresent = false;
-        for (int i=0;i<10;i++){
-            System.out.println();
-        }
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n");
         // display graphics
-        for (int rows = 0; rows < height; rows++) {
-            StringBuilder row = new StringBuilder("|");
-            row.append(" ".repeat(width));
-            if(player.getYpos()== rows){
-                row.setCharAt(player.getXpos()+1, player.getIcon());
-            }
-            for (SpawnEnemy enemy :enemies){
-                if(enemy.getYpos()==rows){
-                    row.setCharAt(enemy.getXpos()+1,enemy.getIcon());
-                }
-            }
-            for(Projectile projectile :projectiles){
-                if(projectile.getYpos()==rows){
-                    row.setCharAt(projectile.getXpos()+1, projectile.getIcon());
-                }
-            }
-            row.append("|");
-            System.out.println(row);
+        String[] screenBuild = {"|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|","|" + " ".repeat(width) + "|"};
+        screenBuild[player.getYpos()] = screenBuild[player.getYpos()].substring(0, player.getXpos()+1) + player.getIcon() + screenBuild[player.getYpos()].substring(player.getXpos()+2);
+        for (SpawnEnemy enemy : enemies) {
+            screenBuild[enemy.getYpos()] = screenBuild[enemy.getYpos()].substring(0,enemy.getXpos()+1) + enemy.getIcon() + screenBuild[enemy.getYpos()].substring(enemy.getXpos()+2);
+        }
+        for (Projectile projectile : projectiles) {
+            screenBuild[projectile.getYpos()]= screenBuild[projectile.getYpos()].substring(0,projectile.getXpos()+1) + projectile.getIcon() + screenBuild[projectile.getYpos()].substring(projectile.getXpos()+2);
+        }
+        for(String screen : screenBuild){
+            System.out.println(screen);
         }
     }
 }
